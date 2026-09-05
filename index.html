@@ -1,83 +1,33 @@
 <!doctype html>
-<html lang="bn">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AMAR SHOP</title>
+<html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AMAR SHOP Admin</title>
 <style>
-:root{--ink:#111827;--muted:#667085;--line:#e5e7eb;--bg:#f7f8fa;--card:#fff;--brand:#111827}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Noto Sans Bengali,sans-serif;background:var(--bg);color:var(--ink)}
-header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:14px 18px;display:flex;gap:14px;align-items:center;justify-content:space-between}
-.brand{font-weight:900;font-size:21px}.actions{display:flex;gap:8px}.btn{border:0;border-radius:10px;padding:11px 15px;cursor:pointer;font-weight:800}.dark{background:var(--brand);color:white}.light{background:#f0f2f5}
-.wrap{max-width:1100px;margin:auto;padding:24px 16px}.hero{background:#111827;color:#fff;border-radius:20px;padding:30px;margin-bottom:22px}.hero h1{margin:0 0 8px;font-size:clamp(28px,6vw,48px)}.hero p{margin:0;color:#d1d5db}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}.pic{height:220px;background:#f0f2f5;display:flex;align-items:center;justify-content:center;color:#98a2b3}.pic img{width:100%;height:100%;object-fit:cover}.body{padding:14px}.price{font-weight:900;font-size:20px}.old{text-decoration:line-through;color:#98a2b3;margin-left:7px;font-size:13px}.tag{font-size:12px;color:var(--muted);margin:6px 0}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;z-index:20}.modal.show{display:flex}.sheet{background:#fff;width:min(620px,100%);max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{margin:9px 0}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:5px}.field input,.field textarea,.field select{width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:10px;font:inherit}.cartline{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:10px 0}.total{font-size:19px;font-weight:900;margin:14px 0}@media(max-width:520px){.row{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<header><div class="brand">AMAR SHOP</div><div class="actions"><button class="btn light" onclick="loadProducts()">↻</button><button class="btn light" onclick="trackOrder()">📦 Track</button><button class="btn dark" onclick="openCart()">🛒 <span id="cartCount">0</span></button></div></header>
-<main class="wrap">
-<section class="hero"><h1>ভালো পণ্য, সহজ অর্ডার</h1><p>অনলাইনে অর্ডার করুন — অর্ডার সরাসরি আমাদের real backend-এ সংরক্ষিত হবে।</p></section>
-<div id="grid" class="grid"></div>
-</main>
-
-<div id="trackModal" class="modal"><div class="sheet">
-<h2>Order Tracking</h2><div class="field"><label>Order ID</label><input id="trackId" placeholder="যেমন AS1234567890"></div>
-<button class="btn dark" onclick="doTrack()">Track Order</button><div id="trackResult"></div></div></div>
-<div id="cartModal" class="modal"><div class="sheet">
-<h2>আপনার Cart</h2><div id="cartItems"></div><div class="total" id="cartTotal"></div>
-<div class="actions"><button class="btn light" onclick="closeModal('cartModal')">বন্ধ</button><button class="btn dark" onclick="checkout()">Checkout</button></div>
-</div></div>
-
-<div id="checkoutModal" class="modal"><div class="sheet">
-<h2>অর্ডার সম্পন্ন করুন</h2>
-<div class="field"><label>নাম *</label><input id="name"></div>
-<div class="row"><div class="field"><label>মোবাইল *</label><input id="phone" inputmode="tel"></div><div class="field"><label>জেলা</label><input id="district"></div></div>
-<div class="field"><label>সম্পূর্ণ ঠিকানা *</label><textarea id="address" rows="3"></textarea></div>
-<div class="field"><label>অতিরিক্ত নোট</label><textarea id="note" rows="2"></textarea></div>
-<div class="field"><label>Payment</label><select id="payment"><option value="COD">Cash on Delivery</option></select></div>
-<div class="field"><label>Delivery charge</label><input id="delivery" type="number" value="80"></div>
-<div class="total" id="checkoutTotal"></div>
-<div class="actions"><button class="btn light" onclick="closeModal('checkoutModal')">পিছনে</button><button id="submit" class="btn dark" onclick="placeOrder()">অর্ডার কনফার্ম করুন</button></div>
-<p id="msg"></p>
-</div></div>
-
+body{font-family:system-ui,sans-serif;background:#f5f6f8;margin:0;color:#111827}.wrap{max-width:1100px;margin:auto;padding:22px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.card{background:white;border:1px solid #e5e7eb;border-radius:16px;padding:16px;margin-bottom:16px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}.field{margin:8px 0}.field label{display:block;font-size:13px;font-weight:800}.field input,.field textarea,.field select{width:100%;padding:10px;border:1px solid #d0d5dd;border-radius:9px;box-sizing:border-box}.btn{border:0;border-radius:9px;padding:10px 13px;font-weight:800;cursor:pointer}.dark{background:#111827;color:#fff}.light{background:#eef0f3}.danger{background:#fee4e2;color:#b42318}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:600px){.row{grid-template-columns:1fr}}table{width:100%;border-collapse:collapse;background:#fff}th,td{padding:9px;border-bottom:1px solid #eee;text-align:left;font-size:13px}
+</style></head><body><div class="wrap">
+<header><h1>AMAR SHOP — Admin</h1><button id="logout" class="btn light" style="display:none">Logout</button></header>
+<div id="login" class="card"><h2>Admin Login</h2><div class="field"><label>Email</label><input id="email"></div><div class="field"><label>Password</label><input id="password" type="password"></div><button class="btn dark" onclick="login()">Login</button><p id="loginMsg"></p></div>
+<div id="panel" style="display:none"><div id="stats" class="card">Loading dashboard…</div>
+<div class="card"><h2>Product Control</h2><div class="row"><div class="field"><label>Product name</label><input id="pname"></div><div class="field"><label>Price</label><input id="price" type="number"></div></div>
+<div class="row"><div class="field"><label>Old price</label><input id="old" type="number"></div><div class="field"><label>Stock</label><input id="stock" type="number"></div></div>
+<div class="row"><div class="field"><label>Category</label><input id="cat"></div><div class="field"><label>Sizes (comma separated)</label><input id="sizes" placeholder="M,L,XL,XXL"></div></div>
+<div class="field"><label>Description</label><textarea id="desc"></textarea></div><div class="field"><label>Image URL (or upload below)</label><input id="image"></div>
+<input id="file" type="file" accept="image/*" onchange="uploadImage()"><br><br><button class="btn dark" onclick="createProduct()">Add Product</button></div>
+<div class="card"><h2>Products</h2><div id="products"></div></div>
+<div class="card"><h2>Orders</h2><div id="orders"></div></div></div></div>
 <script>
-let products=[],cart=JSON.parse(localStorage.getItem("amar_cart")||"[]");
-const money=n=>"৳"+Number(n).toLocaleString("en-BD");
-async function metaEvent(eventName,eventId,customData={}){
- try{await fetch("/api/meta/event",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({eventName,eventId,customData})})}catch{}
-}
-async function loadProducts(){
- const r=await fetch("/api/products"); products=await r.json();
- document.getElementById("grid").innerHTML=products.map(p=>`
- <article class="card"><div class="pic">${p.image?`<img src="${p.image}" alt="">`:"🛍️"}</div>
- <div class="body"><div class="tag">${p.category||"Product"}</div><h3>${esc(p.name)}</h3>
- <div><span class="price">${money(p.price)}</span>${p.oldPrice?`<span class="old">${money(p.oldPrice)}</span>`:""}</div>
- <p class="tag">${esc(p.description||"")}</p><button class="btn dark" style="width:100%" onclick="add(${p.id})">কার্টে যোগ করুন</button></div></article>`).join("");
-}
+let products=[];
+async function api(url,opt){const r=await fetch(url,opt);const d=await r.json();if(!r.ok)throw new Error(d.error||"Error");return d}
+async function check(){try{await api("/api/admin/me");show()}catch{}}
+async function login(){try{await api("/api/admin/login",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({email:email.value,password:password.value})});show()}catch(e){loginMsg.textContent=e.message}}
+function show(){login.style.display="none";panel.style.display="block";logout.style.display="block";loadProducts();loadOrders()}
+logout.onclick=async()=>{await api("/api/admin/logout",{method:"POST"});location.reload()}
+async function loadProducts(){products=await api("/api/admin/products");productsDiv();loadStats()}
+async function loadStats(){const s=await api("/api/admin/stats");document.getElementById("stats").innerHTML=`<b>Dashboard</b><br>Products: ${s.products} &nbsp; Orders: ${s.orders} &nbsp; Pending: ${s.pending} &nbsp; Delivered revenue: ৳${Number(s.revenue).toLocaleString()}` }
+function productsDiv(){productsEl=document.getElementById("products");productsEl.innerHTML=products.map(p=>`<div style="border-bottom:1px solid #eee;padding:10px 0"><b>${esc(p.name)}</b> — ৳${p.price} — Stock ${p.stock}<br><button class="btn danger" onclick="del(${p.id})">Deactivate</button></div>`).join("")}
+async function createProduct(){const p={name:pname.value,price:+price.value,oldPrice:+old.value,stock:+stock.value,category:cat.value,sizes:sizes.value.split(",").map(x=>x.trim()).filter(Boolean),description:desc.value,image:image.value};await api("/api/admin/products",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(p)});alert("Saved");loadProducts()}
+async function del(id){if(confirm("Deactivate product?")){await api("/api/admin/products/"+id,{method:"DELETE"});loadProducts()}}
+async function uploadImage(){const f=file.files[0];if(!f)return;const fd=new FormData();fd.append("image",f);const d=await api("/api/admin/upload",{method:"POST",body:fd});image.value=d.url}
+async function loadOrders(){const o=await api("/api/admin/orders");document.getElementById("orders").innerHTML=`<table><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Change</th></tr>${o.map(x=>`<tr><td>${x.order_number}</td><td>${esc(x.customer_name)}<br>${esc(x.phone)}</td><td>৳${x.total}</td><td>${x.status}</td><td><select onchange="status(${x.id},this.value)">${["PENDING","CONFIRMED","PROCESSING","SHIPPED","DELIVERED","CANCELLED","RETURNED"].map(s=>`<option ${s==x.status?"selected":""}>${s}</option>`).join("")}</select></td></tr>`).join("")}</table>`}
+async function status(id,s){await api("/api/admin/orders/"+id+"/status",{method:"PATCH",headers:{"content-type":"application/json"},body:JSON.stringify({status:s})});loadOrders()}
 function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function save(){localStorage.setItem("amar_cart",JSON.stringify(cart));updateCount()}
-function updateCount(){document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.quantity,0)}
-function add(id){const p=products.find(x=>x.id==id);if(!p)return;const x=cart.find(x=>x.productId==id);x?x.quantity++:cart.push({productId:id,name:p.name,price:p.price,size:(p.sizes||[])[0]||"",quantity:1});save();alert("কার্টে যোগ হয়েছে")}
-function trackOrder(){document.getElementById("trackModal").classList.add("show")}
-async function doTrack(){const id=document.getElementById("trackId").value.trim();if(!id)return;const el=document.getElementById("trackResult");el.textContent="খোঁজা হচ্ছে…";const r=await fetch("/api/orders/track/"+encodeURIComponent(id));const d=await r.json();if(!r.ok){el.textContent=d.error||"Order পাওয়া যায়নি";return}el.innerHTML=`<hr><p><b>${d.order_number}</b></p><p>Status: <b>${d.status}</b></p><p>Total: <b>${money(d.total)}</b></p><p>Created: ${new Date(d.created_at).toLocaleString()}</p>`}
-function openCart(){renderCart();document.getElementById("cartModal").classList.add("show")}
-function renderCart(){const el=document.getElementById("cartItems");if(!cart.length){el.innerHTML="<p>Cart খালি।</p>"}else el.innerHTML=cart.map((x,i)=>`<div class="cartline"><span>${esc(x.name)} × ${x.quantity}</span><b>${money(x.price*x.quantity)} <button onclick="removeItem(${i})">×</button></b></div>`).join("");document.getElementById("cartTotal").textContent="মোট: "+money(cart.reduce((s,x)=>s+x.price*x.quantity,0))}
-function removeItem(i){cart.splice(i,1);save();renderCart()}
-function closeModal(id){document.getElementById(id).classList.remove("show")}
-function checkout(){if(!cart.length)return alert("আগে পণ্য যোগ করুন");closeModal("cartModal");updateCheckoutTotal();document.getElementById("checkoutModal").classList.add("show")}
-function updateCheckoutTotal(){const sub=cart.reduce((s,x)=>s+x.price*x.quantity,0);document.getElementById("checkoutTotal").textContent="সর্বমোট: "+money(sub+Number(document.getElementById("delivery").value||0))}
-document.getElementById("delivery").addEventListener("input",updateCheckoutTotal);
-async function placeOrder(){
- const btn=document.getElementById("submit");btn.disabled=true;document.getElementById("msg").textContent="অর্ডার পাঠানো হচ্ছে…";
- const customer={name:name.value,phone:phone.value,address:address.value,district:district.value,note:note.value,deliveryFee:Number(delivery.value||0)};
- if(!customer.name||!customer.phone||!customer.address){document.getElementById("msg").textContent="নাম, মোবাইল ও ঠিকানা দিন।";btn.disabled=false;return}
- const r=await fetch("/api/orders",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({customer,items:cart,paymentMethod:payment.value})});
- const data=await r.json();
- if(!r.ok){document.getElementById("msg").textContent=data.error||"অর্ডার ব্যর্থ হয়েছে";btn.disabled=false;return}
- cart=[];save();document.getElementById("msg").textContent="✅ অর্ডার সফল! Order ID: "+data.orderNumber;
-metaEvent("Purchase",data.orderNumber,{currency:"BDT",value:Number(data.total)});setTimeout(()=>closeModal("checkoutModal"),2500);btn.disabled=false;
-}
-loadProducts();updateCount();
-</script>
-</body></html>
+check();
+</script></body></html>
